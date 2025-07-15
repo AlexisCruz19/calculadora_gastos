@@ -40,6 +40,14 @@ def eliminar_gasto(indice):
     else:
         print("Índice no válido.")
 
+def editar_gasto(indice, nuevo_nombre, nueva_cantidad):
+    if 0 <= indice < len(gastos):
+        gastos[indice] = (nuevo_nombre, nueva_cantidad)
+        guardar_gastos()
+        print("Gasto editado.")
+    else:
+        print("Índice no válido.")
+
 # Cargar gastos al iniciar
 cargar_gastos()
 
@@ -48,7 +56,8 @@ while True:
     print("2. Ver gastos")
     print("3. Ver total gastado")
     print("4. Eliminar gasto")
-    print("5. Salir")
+    print("5. Editar gasto")
+    print("6. Salir")
 
     opcion = input("Elige una opción: ")
 
@@ -71,6 +80,15 @@ while True:
         except ValueError:
             print("Entrada no válida.")
     elif opcion == "5":
+        ver_gastos()
+        try:
+            numero = int(input("¿Qué número de gasto quieres editar? ")) - 1
+            nuevo_nombre = input("Nuevo nombre del gasto: ")
+            nueva_cantidad = float(input("Nueva cantidad: $"))
+            editar_gasto(numero, nuevo_nombre, nueva_cantidad)
+        except ValueError:
+            print("Entrada no válida.")
+    elif opcion == "6":
         break
     else:
         print("Opción no válida.")

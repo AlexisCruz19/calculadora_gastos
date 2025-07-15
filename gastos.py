@@ -1,7 +1,26 @@
+import os
+
+ARCHIVO = "gastos.txt"
 gastos = []
+
+def cargar_gastos():
+    if os.path.exists(ARCHIVO):
+        with open(ARCHIVO, "r", encoding="utf-8") as f:
+            for linea in f:
+                try:
+                    nombre, cantidad = linea.strip().split("::")
+                    gastos.append((nombre, float(cantidad)))
+                except ValueError:
+                    continue
+
+def guardar_gastos():
+    with open(ARCHIVO, "w", encoding="utf-8") as f:
+        for nombre, cantidad in gastos:
+            f.write(f"{nombre}::{cantidad}\n")
 
 def agregar_gasto(nombre, cantidad):
     gastos.append((nombre, cantidad))
+    guardar_gastos()
     print("Gasto agregado.")
 
 def ver_gastos():
@@ -12,6 +31,9 @@ def ver_gastos():
 def total_gastado():
     total = sum(cantidad for _, cantidad in gastos)
     print(f"\nTotal gastado: ${total}")
+
+# Cargar gastos al iniciar
+cargar_gastos()
 
 while True:
     print("\n1. Agregar gasto")

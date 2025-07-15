@@ -32,6 +32,14 @@ def total_gastado():
     total = sum(cantidad for _, cantidad in gastos)
     print(f"\nTotal gastado: ${total}")
 
+def eliminar_gasto(indice):
+    if 0 <= indice < len(gastos):
+        eliminado = gastos.pop(indice)
+        guardar_gastos()
+        print(f"Gasto eliminado: {eliminado[0]} - ${eliminado[1]}")
+    else:
+        print("Índice no válido.")
+
 # Cargar gastos al iniciar
 cargar_gastos()
 
@@ -39,7 +47,8 @@ while True:
     print("\n1. Agregar gasto")
     print("2. Ver gastos")
     print("3. Ver total gastado")
-    print("4. Salir")
+    print("4. Eliminar gasto")
+    print("5. Salir")
 
     opcion = input("Elige una opción: ")
 
@@ -55,6 +64,13 @@ while True:
     elif opcion == "3":
         total_gastado()
     elif opcion == "4":
+        ver_gastos()
+        try:
+            numero = int(input("¿Qué número de gasto quieres eliminar? ")) - 1
+            eliminar_gasto(numero)
+        except ValueError:
+            print("Entrada no válida.")
+    elif opcion == "5":
         break
     else:
         print("Opción no válida.")
